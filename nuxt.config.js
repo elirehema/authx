@@ -6,7 +6,6 @@ export default {
   ** See https://nuxtjs.org/api/configuration-mode
   */
   mode: 'spa',
-  middleware: ['auth'],
   /*
   ** Nuxt target
   ** See https://nuxtjs.org/api/configuration-target
@@ -78,6 +77,9 @@ export default {
       }
     }
   },
+  router: {
+    middleware: ['auth']
+  },
   auth:{
     strategies:{
       local:{
@@ -110,7 +112,15 @@ export default {
         scope: ['public_profile', 'email', 'user_birthday']
       },
       google:{
-        client_id:'710681785696-leavedlqong076qcif68kar2vkarjavp.apps.googleusercontent.com'
+        scope: [
+          "openid",
+          "profile",
+          "email",
+          "https://www.googleapis.com/auth/gmail.metadata"
+        ],
+        client_id:'710681785696-leavedlqong076qcif68kar2vkarjavp.apps.googleusercontent.com',
+        response_type: "code",
+        access_token_endpoint: "http://localhost:3000/auth/google/"
       }
     }
 

@@ -78,6 +78,7 @@
 
 <script>
   export default {
+    middleware: ['auth'],
     layout: 'auth',
     data() {
       return {
@@ -100,16 +101,22 @@
       },
       async loginWithFacebook(){
         try{
-          let response = await this.$auth.loginWith('facebook')
-          console.log(response)
+          await this.$auth.loginWith('facebook').catch(e => {
+            console.log("Error log"+ e.toString())
+          })
+
         }catch (e) {
           console.log(e)
         }
       },
       async loginWithGoogleAccount(){
         try{
-          let response = await this.$auth.loginWith('google')
-          console.log(response)
+           await this.$auth.loginWith('google').then(() => {
+             console.log("Logged in!");
+           }).catch(e => {
+             console.log("Error log"+ e.toString())
+           })
+
 
         }catch (e) {
           console.log(e)
